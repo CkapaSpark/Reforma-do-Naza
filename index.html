@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reforma do Naza - A Contagem</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            
+            /* Harley-Davidson Background */
+            background: 
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("https://wallpapers.com/images/featured/harley-davidson-18ayrxbdq83o9wc4.jpg");
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 25px;
+            padding: 30px 40px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.6);
+        }
+
+        .time-box {
+            text-align: center;
+            padding: 20px 25px;
+            background: rgba(255,140,0,0.15);
+            border-radius: 15px;
+            width: 120px;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+
+        .time-box:hover {
+            transform: translateY(-8px);
+            background: rgba(255,140,0,0.3);
+        }
+
+        .time-number {
+            font-size: 46px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.8);
+        }
+
+        .time-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 600px) {
+            .countdown {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .time-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Reforma do Naza - A Contagem &nbsp;—&nbsp; 15:30</h1>
+
+<div class="countdown">
+    <div class="time-box">
+        <div id="months" class="time-number">0</div>
+        <div class="time-label">Months</div>
+    </div>
+
+    <div class="time-box">
+        <div id="days" class="time-number">0</div>
+        <div class="time-label">Days</div>
+    </div>
+
+    <div class="time-box">
+        <div id="hours" class="time-number">0</div>
+        <div class="time-label">Hours</div>
+    </div>
+
+    <div class="time-box">
+        <div id="minutes" class="time-number">0</div>
+        <div class="time-label">Minutes</div>
+    </div>
+
+    <div class="time-box">
+        <div id="seconds" class="time-number">0</div>
+        <div class="time-label">Seconds</div>
+    </div>
+</div>
+
+<script>
+    const targetDate = new Date("April 2, 2026 15:30:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        let difference = targetDate - now;
+
+        if (difference <= 0) {
+            document.querySelector(".countdown").innerHTML = "The countdown has ended!";
+            return;
+        }
+
+        const seconds = Math.floor((difference / 1000) % 60);
+        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+
+        let totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const months = Math.floor(totalDays / 30);
+        const days = totalDays % 30;
+
+        document.getElementById("months").innerText = months;
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
