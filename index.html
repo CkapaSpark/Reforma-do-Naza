@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reforma do Naza - A Contagem</title>
+    <title>Reforma do Naza - A Contagem 2027</title>
 
     <style>
         body {
@@ -10,7 +10,6 @@
             padding: 0;
             font-family: "Segoe UI", Roboto, Arial, sans-serif;
             
-            /* Harley-Davidson Background */
             background: 
                 linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
                 url("https://wallpapers.com/images/featured/harley-davidson-18ayrxbdq83o9wc4.jpg");
@@ -21,7 +20,7 @@
             background-attachment: fixed;
 
             color: #ffffff;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,12 +38,14 @@
 
         .countdown {
             display: flex;
-            gap: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
             padding: 30px 40px;
             background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(8px);
             border-radius: 20px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.6);
+            justify-content: center;
         }
 
         .time-box {
@@ -62,21 +63,21 @@
         }
 
         .time-number {
-            font-size: 46px;
+            font-size: 42px;
             font-weight: 700;
             margin-bottom: 5px;
             text-shadow: 0 3px 8px rgba(0,0,0,0.8);
         }
 
         .time-label {
-            font-size: 16px;
+            font-size: 15px;
             opacity: 0.9;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             .countdown {
                 flex-direction: column;
-                gap: 15px;
+                align-items: center;
             }
             .time-box {
                 width: 100%;
@@ -87,12 +88,23 @@
 
 <body>
 
-<h1>Reforma do Naza - A Contagem &nbsp;—&nbsp; 15:29</h1>
+<h1>Reforma do Naza - A Contagem — 15:29</h1>
 
 <div class="countdown">
+
+    <div class="time-box">
+        <div id="years" class="time-number">0</div>
+        <div class="time-label">Years</div>
+    </div>
+
     <div class="time-box">
         <div id="months" class="time-number">0</div>
         <div class="time-label">Months</div>
+    </div>
+
+    <div class="time-box">
+        <div id="weeks" class="time-number">0</div>
+        <div class="time-label">Weeks</div>
     </div>
 
     <div class="time-box">
@@ -114,10 +126,11 @@
         <div id="seconds" class="time-number">0</div>
         <div class="time-label">Seconds</div>
     </div>
+
 </div>
 
 <script>
-    const targetDate = new Date("April 2, 2026 15:30:00").getTime();
+    const targetDate = new Date("April 2, 2027 15:30:00").getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
@@ -133,10 +146,19 @@
         const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
 
         let totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const months = Math.floor(totalDays / 30);
-        const days = totalDays % 30;
 
+        const years = Math.floor(totalDays / 365);
+        totalDays %= 365;
+
+        const months = Math.floor(totalDays / 30);
+        totalDays %= 30;
+
+        const weeks = Math.floor(totalDays / 7);
+        const days = totalDays % 7;
+
+        document.getElementById("years").innerText = years;
         document.getElementById("months").innerText = months;
+        document.getElementById("weeks").innerText = weeks;
         document.getElementById("days").innerText = days;
         document.getElementById("hours").innerText = hours;
         document.getElementById("minutes").innerText = minutes;
@@ -148,5 +170,4 @@
 </script>
 
 </body>
-
 </html>
